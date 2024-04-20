@@ -10,17 +10,32 @@ UCLASS()
 class NORDICGAMEJAM24_API AAlienPet : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AAlienPet();
+
+	UPROPERTY(EditAnywhere)
+	float waitBeforeFollow = 1.f;
+
+	UPROPERTY(EditAnywhere)
+	AActor *playerCharacter = nullptr;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+private:
+	FVector DirectionToPlayer(AActor *PlayerCharacter, float DeltaTime);
+	void FacePlayer(float DeltaTime);
+	void FollowPlayer(float DeltaTime);
+	bool IsInRange();
+	bool isFollowing = true;
+	float timeSinceInRange = 0.0f;
+	float speed = 50.0f;
+	float followRange = 50.0f;
 };
