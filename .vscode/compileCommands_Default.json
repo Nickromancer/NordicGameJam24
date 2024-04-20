@@ -1,5 +1,21 @@
 [
     {
+        "file": "C:\\Users\\Nicho\\Documents\\Unreal Projects\\NordicGameJam24\\Source\\NordicGameJam24\\FirstPersonCharacter.cpp",
+        "arguments": [
+            "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+            "@C:\\Users\\Nicho\\Documents\\Unreal Projects\\NordicGameJam24\\.vscode\\compileCommands_Default\\NordicGameJam24.1.rsp"
+        ],
+        "directory": "C:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+    },
+    {
+        "file": "C:\\Users\\Nicho\\Documents\\Unreal Projects\\NordicGameJam24\\Source\\NordicGameJam24\\FirstPersonCharacter.h",
+        "arguments": [
+            "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+            "@C:\\Users\\Nicho\\Documents\\Unreal Projects\\NordicGameJam24\\.vscode\\compileCommands_Default\\NordicGameJam24.1.rsp"
+        ],
+        "directory": "C:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+    },
+    {
         "file": "C:\\Users\\Nicho\\Documents\\Unreal Projects\\NordicGameJam24\\Source\\NordicGameJam24\\NordicGameJam24.Build.cs",
         "arguments": [
             "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
