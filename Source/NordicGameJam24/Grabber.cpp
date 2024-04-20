@@ -102,6 +102,6 @@ bool UGrabber::GetGrabbableInRange(FHitResult &OutHitResult) const
 		Start,
 		End,
 		FQuat::Identity,
-		ECC_GameTraceChannel2,
+		ECC_GameTraceChannel1,
 		Sphere);
 }
