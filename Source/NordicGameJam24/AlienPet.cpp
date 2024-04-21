@@ -2,8 +2,10 @@
 
 #include "AlienPet.h"
 #include "Math/Rotator.h"
+#include "Math/Vector.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/Pawn.h"
+#include "Components/PrimitiveComponent.h"
 
 // Sets default values
 AAlienPet::AAlienPet()
@@ -30,8 +32,10 @@ void AAlienPet::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	PlayerLocation = UGameplayStatics::GetPlayerController(this, 0)->GetPawn()->GetActorLocation();
 	CurrentLocation = GetActorLocation();
+	this->RandomPlaySound(DeltaTime);
 	UE_LOG(LogTemp, Display, TEXT("Player Location: %s"), *PlayerLocation.ToString());
 	UE_LOG(LogTemp, Display, TEXT("My Location: %s"), *GetActorLocation().ToString());
+	UE_LOG(LogTemp, Display, TEXT("Time since Follow: %f"), timeSinceInRange);
 	if (isFollowing)
 	{
 		FacePlayer(DeltaTime);
@@ -57,20 +61,37 @@ void AAlienPet::FacePlayer(float deltaTime)
 bool AAlienPet::IsInRange()
 {
 	// if(Dist(CurrentLocation, PlayerLocation) > )
+	if (FVector::Distance(PlayerLocation, CurrentLocation) < followRange)
+		return true;
 	return false;
 }
 
 void AAlienPet::FollowPlayer(float DeltaTime)
 {
-	if (this->IsInRange())
-	{
-		timeSinceInRange = 0.f;
-		return;
-	}
 	timeSinceInRange += DeltaTime;
 
-	if (timeSinceInRange >= waitBeforeFollow)
+	if (!IsInRange())
 	{
-		SetActorLocation(CurrentLocation + DirectionToPlayer().Normalize() * Speed);
+		timeSinceInRange = 0.f;
+		SetActorLocation(PlayerLocation, true);
+
+		BaseMesh->SetPhysicsLinearVelocity(FVector::ZeroVector);
+		return;
+	}
+
+	SetActorLocation(CurrentLocation + (PlayerLocation - CurrentLocation) * Speed, true);
+}
+
+void AAlienPet::RandomPlaySound(float DeltaTime)
+{
+	timeSinceLastNoise += DeltaTime;
+
+	if (timeSinceLastNoise >= minTimeBetweenNoises)
+	{
+		if (rand() % inverseSoundProbablity < 2)
+		{
+			timeSinceLastNoise = 0.f;
+			UGameplayStatics::PlaySoundAtLocation(this, sound, GetActorLocation());
+		}
 	}
 }
