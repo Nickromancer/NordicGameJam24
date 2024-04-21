@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/CapsuleComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "AlienPet.generated.h"
 
 UCLASS()
@@ -15,11 +17,20 @@ public:
 	// Sets default values for this actor's properties
 	AAlienPet();
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	class UCapsuleComponent *CapsuleComp;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	UStaticMeshComponent *BaseMesh;
+
 	UPROPERTY(EditAnywhere)
 	float waitBeforeFollow = 1.f;
 
 	UPROPERTY(EditAnywhere)
-	AActor *playerCharacter = nullptr;
+	float Speed = 50.f;
+
+	FVector PlayerLocation;
+	FVector CurrentLocation;
 
 protected:
 	// Called when the game starts or when spawned
@@ -30,7 +41,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	FVector DirectionToPlayer(AActor *PlayerCharacter, float DeltaTime);
+	FVector DirectionToPlayer();
 	void FacePlayer(float DeltaTime);
 	void FollowPlayer(float DeltaTime);
 	bool IsInRange();
