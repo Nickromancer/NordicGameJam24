@@ -3,34 +3,29 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/TriggerBox.h"
-#include "Components/BoxComponent.h"
 #include "GameFramework/Actor.h"
-#include "Respawnable.h"
-#include "RespawnTrigger.generated.h"
+#include "Respawnable.generated.h"
 
-UCLASS()
-class NORDICGAMEJAM24_API ARespawnTrigger : public ATriggerBox
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
+class NORDICGAMEJAM24_API URespawnable : public UActorComponent
 {
 	GENERATED_BODY()
+
+public:
+	// Sets default values for this actor's properties
+	URespawnable();
+
+	UPROPERTY(VisibleAnyWhere)
+	FVector respawnLocation;
+
+	UFUNCTION(BlueprintCallable)
+	void Respawn();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:
-	UPROPERTY(EditAnywhere)
-	UBoxComponent *BoxCollider;
-
-	// constructor sets default values for this actor's properties
-	ARespawnTrigger();
-
-	// declare overlap begin function
-	UFUNCTION()
-	void OnOverlapBegin(UPrimitiveComponent *OverlappedComponent,
-						AActor *OtherActor,
-						UPrimitiveComponent *OtherComp,
-						int32 OtherBodyIndex,
-						bool bFromSweep,
-						const FHitResult &SweepResult);
+	// Called every frame
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 };
