@@ -27,18 +27,18 @@ void AAlienPet::Tick(float DeltaTime)
 	}
 }
 
-FVector DirectionToPlayer(AActor *PlayerCharacter, float DeltaTime)
+FVector AAlienPet::DirectionToPlayer(AActor *PlayerCharacter, float DeltaTime)
 {
-	return PlayerCharacter->GetActorLocation() - GetActor()->GetActorLocation();
+	return FVector(); // PlayerCharacter->GetActorLocation() - GetActor()->GetActorLocation();
 }
 
-void FacePlayer(float deltaTime)
+void AAlienPet::FacePlayer(float deltaTime)
 {
 	FRotator newRotator = DirectionToPlayer(playerCharacter, deltaTime).Rotation();
 	newRotator.Yaw = FRotator::ClampAxis(newRotator.Yaw);
 	SetActorRotation(newRotator);
 
-	FaceRotation(newRotator, deltaTime);
+	//FaceRotation(newRotator, deltaTime);
 }
 
 bool AAlienPet::IsInRange()
