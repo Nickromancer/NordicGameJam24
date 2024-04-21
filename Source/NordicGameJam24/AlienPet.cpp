@@ -43,7 +43,7 @@ void AAlienPet::Tick(float DeltaTime)
 	}
 }
 
-FVector AAlienPet::DirectionToPlayer()
+FVector AAlienPet::DirectionToPlayer(float DeltaTime)
 {
 	FVector TargetLocation = GetActorLocation();
 	return (PlayerLocation - TargetLocation);
@@ -51,7 +51,7 @@ FVector AAlienPet::DirectionToPlayer()
 
 void AAlienPet::FacePlayer(float deltaTime)
 {
-	FRotator newRotator = DirectionToPlayer().Rotation();
+	FRotator newRotator = DirectionToPlayer(deltaTime).Rotation();
 	newRotator.Yaw = FRotator::ClampAxis(newRotator.Yaw);
 	SetActorRotation(newRotator);
 
@@ -91,7 +91,7 @@ void AAlienPet::RandomPlaySound(float DeltaTime)
 		if (rand() % inverseSoundProbablity < 2)
 		{
 			timeSinceLastNoise = 0.f;
-			UGameplayStatics::PlaySoundAtLocation(this, sound, GetActorLocation());
+			UGameplayStatics::PlaySoundAtLocation(this, sound, GetActorLocation(), GetActorRotation());
 		}
 	}
 }

@@ -16,7 +16,10 @@
       "*.ejs": "html",
       "*.rh": "cpp",
       "__locale": "cpp",
-      "xlocale": "cpp"
+      "xlocale": "cpp",
+      "future": "cpp",
+      "regex": "cpp",
+      "system_error": "cpp"
     }
   },
   "extensions": {

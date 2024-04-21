@@ -19,11 +19,11 @@ public:
 	// Sets default values for this actor's properties
 	AAlienPet();
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	class UCapsuleComponent *CapsuleComp;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent *BaseMesh;
+
+	UPROPERTY(EditAnywhere)
+	UCapsuleComponent *CapsuleComp;
 
 	UPROPERTY(EditAnywhere)
 	float waitBeforeFollow = 1.f;
@@ -55,7 +55,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	FVector DirectionToPlayer();
+	FVector DirectionToPlayer(float DeltaTime);
 	void FacePlayer(float DeltaTime);
 	void FollowPlayer(float DeltaTime);
 	bool IsInRange();
