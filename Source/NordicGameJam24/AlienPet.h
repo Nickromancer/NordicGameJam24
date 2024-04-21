@@ -4,6 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/CapsuleComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundBase.h"
+
 #include "AlienPet.generated.h"
 
 UCLASS()
@@ -16,10 +20,31 @@ public:
 	AAlienPet();
 
 	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent *BaseMesh;
+
+	UPROPERTY(EditAnywhere)
+	UCapsuleComponent *CapsuleComp;
+
+	UPROPERTY(EditAnywhere)
 	float waitBeforeFollow = 1.f;
 
 	UPROPERTY(EditAnywhere)
-	AActor *playerCharacter = nullptr;
+	float Speed = .5f;
+
+	UPROPERTY(EditAnywhere)
+	bool isFollowing = true;
+
+	UPROPERTY(EditAnywhere)
+	float followRange = 50.0f;
+
+	FVector PlayerLocation;
+	FVector CurrentLocation;
+
+	UPROPERTY(EditAnywhere)
+	USoundBase *sound;
+
+	UPROPERTY(EditAnywhere)
+	int inverseSoundProbablity = 1000;
 
 protected:
 	// Called when the game starts or when spawned
@@ -30,12 +55,12 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	FVector DirectionToPlayer(AActor *PlayerCharacter, float DeltaTime);
+	FVector DirectionToPlayer(float DeltaTime);
 	void FacePlayer(float DeltaTime);
 	void FollowPlayer(float DeltaTime);
 	bool IsInRange();
-	bool isFollowing = true;
 	float timeSinceInRange = 0.0f;
-	float speed = 50.0f;
-	float followRange = 50.0f;
+	void RandomPlaySound(float DeltaTime);
+	float timeSinceLastNoise = 0.f;
+	float minTimeBetweenNoises = 1.f;
 };
